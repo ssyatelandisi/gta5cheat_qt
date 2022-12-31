@@ -1,2 +1,2 @@
 # gta5cheatqt
-C++ Qt5 
+C++ Qt6 
