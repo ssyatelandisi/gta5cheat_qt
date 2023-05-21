@@ -195,8 +195,9 @@ ULONGLONG Gtav::memoryMaskCode_search(BYTE *memory, SIZE_T length, SHORT *maskCo
  * @param memory 内存字节
  * @param moduleSize 内存字节长度
  * @param version 版本字符串
+ * @return bool
  */
-void Gtav::check_version(BYTE *memory, SIZE_T moduleSize, char *version)
+bool Gtav::check_version(BYTE *memory, SIZE_T moduleSize, char *version)
 {
     SIZE_T size = strlen(version);
     SHORT *maskCode = new SHORT[size]{0};
@@ -204,6 +205,7 @@ void Gtav::check_version(BYTE *memory, SIZE_T moduleSize, char *version)
     {
         maskCode[i] = version[i];
     }
+    BOOLEAN result;
     if (memoryMaskCode_search(memory, moduleSize, maskCode, size) == 0)
     {
         WCHAR msg[MAX_PATH] = L"当前游戏版本与辅助支持的";
@@ -213,8 +215,14 @@ void Gtav::check_version(BYTE *memory, SIZE_T moduleSize, char *version)
         wcscat(msg, L"版本不匹配，谨慎使用。");
         MessageBoxW(NULL, msg, L"警告", MB_ICONWARNING | MB_OK);
         delete[] msg0;
+        result = false;
+    }
+    else
+    {
+        result = true;
     }
     delete[] maskCode;
+    return result;
 }
 
 /**
@@ -289,14 +297,14 @@ void Gtav::pattern_init(BYTE *memory, SIZE_T length, MASK *masks, SIZE_T size)
         }
         wprintf(L"%-18S: %s + 0x%08llX\n", masks[i].name, processName, ptr - hModule);
         delete[] maskCode;
-        // WorldPTR          : gta5.exe + 0x026610C8
-        // BlipPTR           : gta5.exe + 0x020D17E0
-        // ReplayInterfacePTR: gta5.exe + 0x02027A48
-        // LocalScriptsPTR   : gta5.exe + 0x02EFE5D0
-        // GlobalPTR         : gta5.exe + 0x02EFE700
-        // PlayerCountPTR    : gta5.exe + 0x01EF74F8
-        // PickupDataPTR     : gta5.exe + 0x026605C0
-        // WeatherPTR        : gta5.exe + 0x02649BBC
+        // WorldPTR          : gta5.exe + 0x02561678
+        // BlipPTR           : gta5.exe + 0x01FD5990
+        // ReplayInterfacePTR: gta5.exe + 0x01F6FA20
+        // LocalScriptsPTR   : gta5.exe + 0x02E770B0
+        // GlobalPTR         : gta5.exe + 0x02E771E0
+        // PlayerCountPTR    : gta5.exe + 0x01E195E0
+        // PickupDataPTR     : gta5.exe + 0x02560BC0
+        // WeatherPTR        : gta5.exe + 0x0254A1BC
     }
 }
 
@@ -349,6 +357,9 @@ void Gtav::get_position(FLOAT *position)
  */
 void Gtav::teleport(FLOAT *position)
 {
+    if(position[0]>6399.F){
+        return;
+    }
     ADDR pedVisualXArray[] = {WorldPTR, oPed, oPedVisualX};
     ADDR pedNavigationPositionXArray[] = {WorldPTR, oPed, oPedNavigation, oPedNavigationPositionX};
     ADDR pedVehicleVisualXArray[] = {WorldPTR, oPed, oPedVehicle, oPedVehicleVisualX};
@@ -394,8 +405,8 @@ void Gtav::teleport_to_waypoint()
  */
 void Gtav::teleport_to_objective()
 {
-    FLOAT position[3] = {0};
-    for (int i = 2000; i > 0; i--)
+    FLOAT position[3] = {6400.F};
+    for (int i = 1; i <= 2000; i++)
     {
         ADDR addr = read_ulonglong(BlipPTR + i * 8);
         if (!check_valid(addr))
@@ -404,14 +415,7 @@ void Gtav::teleport_to_objective()
         }
         ADDR buf0 = read_int(addr + 0x40);
         ADDR buf1 = read_int(addr + 0x48);
-        if ((buf0 == 432 || buf0 == 443) && (buf1 == 59))
-        {
-            read_bytes(addr + 0x10, position, 12);
-            position[2] += 1.F;
-            teleport(position);
-            return;
-        }
-        else if (buf0 == 1 && (buf1 == 5 || buf1 == 60 || buf1 == 66))
+        if (buf0 == 1 && (buf1 == 5 || buf1 == 60 || buf1 == 66))
         {
             read_bytes(addr + 0x10, position, 12);
             position[2] += 1.F;
@@ -419,6 +423,13 @@ void Gtav::teleport_to_objective()
             return;
         }
         else if ((buf0 == 1 || buf0 == 225 || buf0 == 427 || buf0 == 478 || buf0 == 501 || buf0 == 523 || buf0 == 556) && (buf1 == 1 || buf1 == 2 || buf1 == 3 || buf1 == 54 || buf1 == 78))
+        {
+            read_bytes(addr + 0x10, position, 12);
+            position[2] += 1.F;
+            teleport(position);
+            return;
+        }
+        else if ((buf0 == 432 || buf0 == 443) && (buf1 == 59))
         {
             read_bytes(addr + 0x10, position, 12);
             position[2] += 1.F;
@@ -523,8 +534,9 @@ void Gtav::set_health(FLOAT health)
 }
 
 /**
- * @brief
+ * @brief 设置护甲数值
  *
+ * @param armor
  */
 void Gtav::set_armor(FLOAT armor)
 {
@@ -535,23 +547,23 @@ void Gtav::set_armor(FLOAT armor)
 /**
  * @brief 设置无敌状态
  *
- * @param value
+ * @param status
  */
-void Gtav::set_godMode(bool value)
+void Gtav::set_godMode(bool status)
 {
     ADDR pedGodModeArray[] = {WorldPTR, oPed, oPedGodMode};
-    pwrite_uchar(pedGodModeArray, len(pedGodModeArray), value ? 1 : 0);
+    pwrite_uchar(pedGodModeArray, len(pedGodModeArray), status ? 1 : 0);
 }
 
 /**
  * @brief 设置安全带状态
  *
- * @param value
+ * @param status
  */
-void Gtav::set_seatbelt(bool value)
+void Gtav::set_seatbelt(bool status)
 {
     ADDR pedSeatbeltArray[] = {WorldPTR, oPed, oPedSeatbelt};
-    pwrite_uchar(pedSeatbeltArray, len(pedSeatbeltArray), value ? 0xC9 : 0xC8);
+    pwrite_uchar(pedSeatbeltArray, len(pedSeatbeltArray), status ? 0xC9 : 0xC8);
 }
 
 /**
@@ -579,23 +591,23 @@ FLOAT Gtav::get_maxArmor()
 /**
  * @brief 设置无限弹药状态
  *
- * @param value
+ * @param status
  */
-void Gtav::set_infiniteAmmo(bool value)
+void Gtav::set_infiniteAmmo(bool status)
 {
     ADDR pedInfiniteAmmoArray[] = {WorldPTR, oPed, oPedInventory, oPedInventoryInfiniteAmmo};
-    pwrite_uchar(pedInfiniteAmmoArray, len(pedInfiniteAmmoArray), value ? 10 : 0);
+    pwrite_uchar(pedInfiniteAmmoArray, len(pedInfiniteAmmoArray), status ? 10 : 0);
 }
 
 /**
  * @brief 设置载具无敌状态
  *
- * @param value
+ * @param status
  */
-void Gtav::set_vehicleGodMode(bool value)
+void Gtav::set_vehicleGodMode(bool status)
 {
     ADDR pedVehicleGodModeArray[] = {WorldPTR, oPed, oPedVehicle, oPedVehicleGodMode};
-    pwrite_uchar(pedVehicleGodModeArray, len(pedVehicleGodModeArray), value ? 1 : 0);
+    pwrite_uchar(pedVehicleGodModeArray, len(pedVehicleGodModeArray), status ? 1 : 0);
 }
 
 /**
@@ -604,9 +616,9 @@ void Gtav::set_vehicleGodMode(bool value)
  */
 void Gtav::repairing_vehicle()
 {
-    if (read_gaInt(2672505 + 3689) != 0)
+    if (read_gaInt(2672505 + 3690) != 0)
     {
-        write_gaInt(2672505 + 3689, -1); // 消除牛鲨睾酮效果
+        write_gaInt(2672505 + 3690, -1); // 消除牛鲨睾酮效果
         return;
     }
     if (!check_inVehicle()) // 不在载具上
@@ -615,7 +627,7 @@ void Gtav::repairing_vehicle()
     }
     // ADDR bstTrigger[] = {GlobalPTR + 0x8 * 0xA, 0x17BE28};
     // pwrite_int(bstTrigger, len(bstTrigger), 1); // 空投牛鲨睾酮
-    write_gaInt(2793044 + 894, 1);
+    write_gaInt(2793046 + 894, 1);
     Sleep(1700);
     ADDR vehicleHealthArray[] = {WorldPTR, oPed, oPedVehicle, oPedVehicleHealth};
     pwrite_float(vehicleHealthArray, len(vehicleHealthArray), 999.F); // 由于载具满血无法接到牛鲨睾酮
@@ -871,7 +883,7 @@ void Gtav::destroy_enemy_vehicles()
  */
 void Gtav::set_luckyWheel(INT value)
 {
-    ULONGLONG addr = localAddress((CHAR *)"casino_lucky_wheel", 273 + 14);
+    ULONGLONG addr = localAddress((CHAR *)"casino_lucky_wheel", 275 + 14);
     if (check_valid(addr))
     {
         write_int(addr, value);
@@ -928,8 +940,8 @@ void Gtav::stat_write(CHAR *stat, INT value)
             return;
         }
     }
-    UINT stat_ResotreHash = read_gaUint(1655453 + 4);
-    INT stat_ResotreValue = read_gaInt(1020252 + 5526);
+    UINT stat_ResotreHash = read_gaUint(1665454 + 4);
+    INT stat_ResotreValue = read_gaInt(1010831 + 5525);
     write_gaUint(1665454 + 4, joaat(s));
     write_gaInt(1010831 + 5525, value);
     write_gaInt(1653913 + 1139, -1);
@@ -939,6 +951,11 @@ void Gtav::stat_write(CHAR *stat, INT value)
     delete[] s;
 }
 
+/**
+ * @brief dll注入
+ *
+ * @param dllPath
+ */
 void Gtav::dll_inject(CHAR *dllPath)
 {
     HANDLE hProcess = get_hProcess(pid); // 进程句柄
@@ -1083,19 +1100,19 @@ void Gtav::write_cut(INT *data)
 /**
  * @brief 挂机防踢
  *
- * @param value
+ * @param status
  */
-void Gtav::antiAFK(bool value)
+void Gtav::antiAFK(bool status)
 {
-    write_gaInt(262145 + 87, value ? 99999999 : 120000);
-    write_gaInt(262145 + 88, value ? 99999999 : 300000);
-    write_gaInt(262145 + 89, value ? 99999999 : 600000);
-    write_gaInt(262145 + 90, value ? 99999999 : 900000);
+    write_gaInt(262145 + 87, status ? 99999999 : 120000);
+    write_gaInt(262145 + 88, status ? 99999999 : 300000);
+    write_gaInt(262145 + 89, status ? 99999999 : 600000);
+    write_gaInt(262145 + 90, status ? 99999999 : 900000);
     // 742014
-    write_gaInt(262145 + 8248, value ? 2000000000 : 30000);
-    write_gaInt(262145 + 8249, value ? 2000000000 : 60000);
-    write_gaInt(262145 + 8250, value ? 2000000000 : 90000);
-    write_gaInt(262145 + 8251, value ? 2000000000 : 120000);
+    write_gaInt(262145 + 8248, status ? 2000000000 : 30000);
+    write_gaInt(262145 + 8249, status ? 2000000000 : 60000);
+    write_gaInt(262145 + 8250, status ? 2000000000 : 90000);
+    write_gaInt(262145 + 8251, status ? 2000000000 : 120000);
 }
 
 /**
@@ -1124,7 +1141,7 @@ void using_GTAHaX()
             &si,
             &pi))
     {
-        printf("打开GTAHaXUI.exe失败 (%u).\n", GetLastError());
+        printf("打开GTAHaXUI.exe失败 (%u).\n", (unsigned int)GetLastError());
         return;
     }
     else

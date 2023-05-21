@@ -4,7 +4,6 @@
 #include "memorycontrol.h"
 #include <windows.h>
 
-using namespace memorycontrol;
 struct MASK
 {
     WCHAR name[32];
@@ -23,7 +22,7 @@ private:
     ULONGLONG WorldPTR = 0;
     ULONGLONG WeatherPTR = 0;
     CHAR processName[9] = "gta5.exe";
-    CHAR Version[5] = "1.64";
+    CHAR Version[5] = "1.66";
     MASK masks[8] = {
         {L"WorldPTR", "48 8B 05 ? ? ? ? 45 ? ? ? ? 48 8B 48 08 48 85 C9 74 07"},
         {L"BlipPTR", "4C 8D 05 ? ? ? ? 0F B7 C1"},
@@ -47,7 +46,7 @@ public:
     UINT read_localAddressUint(CHAR *threadName, ADDR offset);
     FLOAT read_localAddressFloat(CHAR *threadName, ADDR offset);
     ULONGLONG memoryMaskCode_search(BYTE *memory, SIZE_T length, SHORT *maskCode, SIZE_T size);
-    void check_version(BYTE *memory, SIZE_T length, char *version);
+    bool check_version(BYTE *memory, SIZE_T length, char *version);
     void pattern_init(BYTE *memory, SIZE_T length, MASK *maskCode, SIZE_T size);
     bool check_valid(ADDR address);
     bool check_inVehicle();

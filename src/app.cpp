@@ -71,7 +71,6 @@ App::App(QWidget *parent)
     connect(this, &App::signalWorkCheckBoxWatch, workCheckBoxWatch, &WorkCheckBoxWatch::slotWork);
     connect(this, &App::signalWorkHotkey, workHotkey, &WorkHotkey::slotWork);
     threadSuspend->start();
-    threadLuckyWheel->start();
     threadStatHax->start();
     threadCheckBoxWatch->start();
     threadHotkey->start();
@@ -318,7 +317,8 @@ void App::slotPushButton_clicked(QWidget *object)
             [=]
             {
                 // 末日1服务器群组
-                gtav->localAddress((CHAR *)"fm_mission_controller", 1537, 2);
+                gtav->localAddress((CHAR *)"fm_mission_controller", 1539, 2);
+                gtav->localAddress((CHAR *)"fm_mission_controller", 1508, 3);
             });
         threadCheatThread->start();
     }
@@ -541,7 +541,11 @@ void App::slotCheckBox_stateChanged(QCheckBox *object)
     {
         if (ui->checkBox_luckyWheel->isChecked())
         {
-            emit signalWorkLuckyWheel();
+            if (!threadLuckyWheel->isRunning())
+            {
+                threadLuckyWheel->start();
+                emit signalWorkLuckyWheel();
+            }
         }
         else
         {

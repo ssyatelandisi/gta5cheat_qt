@@ -1,8 +1,6 @@
 #ifndef OFFSET_H
 #define OFFSET_H
 
-#include <windows.h>
-
 #define oPed 0x8
 #define oPedHealth 0x280
 #define oPedInVehicle 0xE32
@@ -31,7 +29,7 @@
 #define oPedInventoryInfiniteAmmo 0x78
 
 #define oPedPlayerInfo 0x10A8
-#define oPedPlayerInfoCopLevel 0x888
+#define oPedPlayerInfoCopLevel 0x8E8
 
 #define oPedArmor 0x150C
 #define oPedGodMode 0x189
@@ -46,6 +44,6 @@
 #define oSessionCache 1574589 + 2
 #define oSessionType 1575017
 
-#define oVehicleCreate 2694560
+#define oVehicleCreate 2694562
 
 #endif

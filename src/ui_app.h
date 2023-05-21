@@ -956,11 +956,13 @@ public:
 
         pushButton_casinoFingerprintHack = new QPushButton(groupBox_7);
         pushButton_casinoFingerprintHack->setObjectName(QString::fromUtf8("pushButton_casinoFingerprintHack"));
+        pushButton_casinoFingerprintHack->setEnabled(false);
 
         gridLayout_14->addWidget(pushButton_casinoFingerprintHack, 0, 1, 1, 1);
 
         pushButton_casinoDoorHack = new QPushButton(groupBox_7);
         pushButton_casinoDoorHack->setObjectName(QString::fromUtf8("pushButton_casinoDoorHack"));
+        pushButton_casinoDoorHack->setEnabled(false);
 
         gridLayout_14->addWidget(pushButton_casinoDoorHack, 1, 0, 1, 1);
 
@@ -979,6 +981,7 @@ public:
 
         pushButton_circuitBreaker = new QPushButton(groupBox_5);
         pushButton_circuitBreaker->setObjectName(QString::fromUtf8("pushButton_circuitBreaker"));
+        pushButton_circuitBreaker->setEnabled(false);
 
         gridLayout_11->addWidget(pushButton_circuitBreaker, 0, 1, 1, 1);
 
@@ -1008,6 +1011,7 @@ public:
 
         pushButton_doomsday3Hack = new QPushButton(groupBox_6);
         pushButton_doomsday3Hack->setObjectName(QString::fromUtf8("pushButton_doomsday3Hack"));
+        pushButton_doomsday3Hack->setEnabled(false);
 
         gridLayout_12->addWidget(pushButton_doomsday3Hack, 1, 0, 1, 1);
 
@@ -1048,21 +1052,25 @@ public:
         gridLayout_13->setObjectName(QString::fromUtf8("gridLayout_13"));
         pushButton_pericoHack3 = new QPushButton(groupBox_8);
         pushButton_pericoHack3->setObjectName(QString::fromUtf8("pushButton_pericoHack3"));
+        pushButton_pericoHack3->setEnabled(false);
 
         gridLayout_13->addWidget(pushButton_pericoHack3, 1, 1, 1, 1);
 
         pushButton_pericoHack1 = new QPushButton(groupBox_8);
         pushButton_pericoHack1->setObjectName(QString::fromUtf8("pushButton_pericoHack1"));
+        pushButton_pericoHack1->setEnabled(false);
 
         gridLayout_13->addWidget(pushButton_pericoHack1, 0, 1, 1, 1);
 
         pushButton_pericoHack4 = new QPushButton(groupBox_8);
         pushButton_pericoHack4->setObjectName(QString::fromUtf8("pushButton_pericoHack4"));
+        pushButton_pericoHack4->setEnabled(false);
 
         gridLayout_13->addWidget(pushButton_pericoHack4, 2, 0, 1, 1);
 
         pushButton_pericoHack2 = new QPushButton(groupBox_8);
         pushButton_pericoHack2->setObjectName(QString::fromUtf8("pushButton_pericoHack2"));
+        pushButton_pericoHack2->setEnabled(false);
 
         gridLayout_13->addWidget(pushButton_pericoHack2, 1, 0, 1, 1);
 
@@ -1202,6 +1210,7 @@ public:
         label_24->setBuddy(lineEdit_vehicleCode);
         label_25->setBuddy(lineEdit_vehicleHash);
 #endif // QT_CONFIG(shortcut)
+        QWidget::setTabOrder(tabWidget, checkBox_killGTA);
         QWidget::setTabOrder(checkBox_killGTA, checkBox_antiAFK);
         QWidget::setTabOrder(checkBox_antiAFK, checkBox_autoCure);
         QWidget::setTabOrder(checkBox_autoCure, checkBox_godMode);
@@ -1264,13 +1273,12 @@ public:
         QWidget::setTabOrder(pushButton_killEnemyNPC, pushButton_destroyEnemyVehicles);
         QWidget::setTabOrder(pushButton_destroyEnemyVehicles, pushButton_yimInject);
         QWidget::setTabOrder(pushButton_yimInject, textEdit_statText);
-        QWidget::setTabOrder(textEdit_statText, comboBox_weather);
+        QWidget::setTabOrder(textEdit_statText, pushButton_statSubmit);
+        QWidget::setTabOrder(pushButton_statSubmit, comboBox_weather);
         QWidget::setTabOrder(comboBox_weather, lineEdit_vehicleCode);
         QWidget::setTabOrder(lineEdit_vehicleCode, lineEdit_vehicleHash);
         QWidget::setTabOrder(lineEdit_vehicleHash, pushButton_indoorSpawn);
         QWidget::setTabOrder(pushButton_indoorSpawn, pushButton_outdoorSpawn);
-        QWidget::setTabOrder(pushButton_outdoorSpawn, pushButton_statSubmit);
-        QWidget::setTabOrder(pushButton_statSubmit, tabWidget);
 
         retranslateUi(App);
         QObject::connect(pushButton_yimInject, &QPushButton::released, pushButton_yimInject, qOverload<>(&QPushButton::deleteLater));

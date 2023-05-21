@@ -11,6 +11,8 @@ set(CMAKE_PREFIX_PATH "e:/Qt/6.3.2/mingw_64") # Qt Kit Dir
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -s")
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia)
 
 set(PROJECT_SOURCES
@@ -72,4 +74,11 @@ install(TARGETS gta5cheat_qt
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(gta5cheat_qt)
 endif()
-# add_custom_command(TARGET gta5cheat_qt POST_BUILD COMMAND strip ${PROJECT_NAME}.exe COMMAND upx ${PROJECT_NAME}.exe)
+find_program(WINDEPLOYQT NAMES windeployqt.exe)
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${WINDEPLOYQT} ${PROJECT_BINARY_DIR}/bin/${PROJECT_NAME}.exe
+    COMMENT "windeployqt..."
+    VERBATIM
+)

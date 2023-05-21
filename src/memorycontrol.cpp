@@ -21,7 +21,7 @@ namespace memorycontrol
         if (hProcessSnapshot == INVALID_HANDLE_VALUE)
         {
             MessageBoxW(NULL, L"创建进程快照失败", L"错误", MB_ICONERROR | MB_OK);
-            throw L"创建模块快照失败";
+            throw L"创建进程快照失败";
         }
         PROCESSENTRY32W process;                  // 进程结构体
         process.dwSize = sizeof(PROCESSENTRY32W); // 进程结构体长度
@@ -378,15 +378,12 @@ namespace memorycontrol
     vector<char *> split(char *str, const char *s)
     {
         vector<char *> temp;
-        char *strCopy = new char[strlen(str) + 1]{0};
-        strncpy(strCopy, str, strlen(str));
-        char *res = strtok(strCopy, s);
+        char *res = strtok(str, s);
         while (res != NULL)
         {
             temp.push_back(res);
             res = strtok(NULL, s);
         }
-        delete[] strCopy;
         return temp;
     }
 

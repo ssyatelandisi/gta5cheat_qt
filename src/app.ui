@@ -1117,6 +1117,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="pushButton_casinoFingerprintHack">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>赌场指纹秒破解(CTRL+H)</string>
             </property>
@@ -1124,6 +1127,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="pushButton_casinoDoorHack">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>赌场门禁点阵秒破解(CTRL+H)</string>
             </property>
@@ -1150,6 +1156,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="pushButton_circuitBreaker">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>全福银行电路破解(CTRL+H)</string>
             </property>
@@ -1193,6 +1202,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="pushButton_doomsday3Hack">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>末日3激光球秒破解(H)</string>
             </property>
@@ -1249,6 +1261,9 @@ background-color: rgba(170, 0, 255, 180);
          <layout class="QGridLayout" name="gridLayout_13">
           <item row="1" column="1">
            <widget class="QPushButton" name="pushButton_pericoHack3">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>指纹秒破解(CTRL+H)</string>
             </property>
@@ -1256,6 +1271,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="pushButton_pericoHack1">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>机场电压秒破解(CTRL+H)</string>
             </property>
@@ -1263,6 +1281,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="2" column="0">
            <widget class="QPushButton" name="pushButton_pericoHack4">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>玻璃秒切割(CTRL+H)</string>
             </property>
@@ -1270,6 +1291,9 @@ background-color: rgba(170, 0, 255, 180);
           </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="pushButton_pericoHack2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>下水道栅栏秒切割(CTRL+H)</string>
             </property>
@@ -1470,6 +1494,7 @@ background-color: rgba(170, 0, 255, 180);
   </layout>
  </widget>
  <tabstops>
+  <tabstop>tabWidget</tabstop>
   <tabstop>checkBox_killGTA</tabstop>
   <tabstop>checkBox_antiAFK</tabstop>
   <tabstop>checkBox_autoCure</tabstop>
@@ -1533,13 +1558,12 @@ background-color: rgba(170, 0, 255, 180);
   <tabstop>pushButton_destroyEnemyVehicles</tabstop>
   <tabstop>pushButton_yimInject</tabstop>
   <tabstop>textEdit_statText</tabstop>
+  <tabstop>pushButton_statSubmit</tabstop>
   <tabstop>comboBox_weather</tabstop>
   <tabstop>lineEdit_vehicleCode</tabstop>
   <tabstop>lineEdit_vehicleHash</tabstop>
   <tabstop>pushButton_indoorSpawn</tabstop>
   <tabstop>pushButton_outdoorSpawn</tabstop>
-  <tabstop>pushButton_statSubmit</tabstop>
-  <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources>
   <include location="../resource/resource.qrc"/>
