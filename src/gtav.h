@@ -22,7 +22,7 @@ private:
     ULONGLONG WorldPTR = 0;
     ULONGLONG WeatherPTR = 0;
     CHAR processName[9] = "gta5.exe";
-    CHAR Version[5] = "1.66";
+    CHAR Version[5] = "1.67";
     MASK masks[8] = {
         {L"WorldPTR", "48 8B 05 ? ? ? ? 45 ? ? ? ? 48 8B 48 08 48 85 C9 74 07"},
         {L"BlipPTR", "4C 8D 05 ? ? ? ? 0F B7 C1"},

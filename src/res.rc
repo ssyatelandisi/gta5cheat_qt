@@ -8,8 +8,8 @@ IDI_ICON1 ICON "icon.ico"
 #endif
 
 VS_VERSION_INFO VERSIONINFO
-    FILEVERSION 1,0,0,3
-    PRODUCTVERSION 1,0,0,3
+    FILEVERSION 1,0,0,4
+    PRODUCTVERSION 1,0,0,4
     FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
     FILEFLAGS VS_FF_DEBUG
@@ -26,11 +26,11 @@ VS_VERSION_INFO VERSIONINFO
             BEGIN
                 VALUE "CompanyName", "ssyatelandisi"
                 VALUE "FileDescription", "GTAOL简易辅助"
-                VALUE "FileVersion", "1.0.0.3"
-                VALUE "LegalCopyright", "©2018-2022 ssyatelandisi"
+                VALUE "FileVersion", "1.0.0.4"
+                VALUE "LegalCopyright", "©2018-2023 ssyatelandisi"
                 VALUE "OriginalFilename", "GTAV Cheat"
                 VALUE "ProductName", "GTAV Cheat"
-                VALUE "ProductVersion", "1.0.0.3"
+                VALUE "ProductVersion", "1.0.0.4"
             END
         END
         BLOCK "VarFileInfo"

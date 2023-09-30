@@ -616,9 +616,9 @@ void Gtav::set_vehicleGodMode(bool status)
  */
 void Gtav::repairing_vehicle()
 {
-    if (read_gaInt(2672505 + 3690) != 0)
+    if (read_gaInt(2672524 + 3690) != 0)
     {
-        write_gaInt(2672505 + 3690, -1); // 消除牛鲨睾酮效果
+        write_gaInt(2672524 + 3690, -1); // 消除牛鲨睾酮效果
         return;
     }
     if (!check_inVehicle()) // 不在载具上
@@ -627,7 +627,7 @@ void Gtav::repairing_vehicle()
     }
     // ADDR bstTrigger[] = {GlobalPTR + 0x8 * 0xA, 0x17BE28};
     // pwrite_int(bstTrigger, len(bstTrigger), 1); // 空投牛鲨睾酮
-    write_gaInt(2793046 + 894, 1);
+    write_gaInt(2794162 + 899, 1);
     Sleep(1700);
     ADDR vehicleHealthArray[] = {WorldPTR, oPed, oPedVehicle, oPedVehicleHealth};
     pwrite_float(vehicleHealthArray, len(vehicleHealthArray), 999.F); // 由于载具满血无法接到牛鲨睾酮
@@ -655,9 +655,9 @@ void Gtav::repairing_vehicle()
         }
     }
     Sleep(1000);
-    if (read_gaInt(2672505 + 3689) != 0)
+    if (read_gaInt(2672524 + 3689) != 0)
     {
-        write_gaInt(2672505 + 3689, -1); // 消除牛鲨睾酮效果
+        write_gaInt(2672524 + 3689, -1); // 消除牛鲨睾酮效果
     }
 }
 
@@ -883,7 +883,7 @@ void Gtav::destroy_enemy_vehicles()
  */
 void Gtav::set_luckyWheel(INT value)
 {
-    ULONGLONG addr = localAddress((CHAR *)"casino_lucky_wheel", 275 + 14);
+    ULONGLONG addr = localAddress((CHAR *)"casino_lucky_wheel", 276 + 14);
     if (check_valid(addr))
     {
         write_int(addr, value);
@@ -940,14 +940,14 @@ void Gtav::stat_write(CHAR *stat, INT value)
             return;
         }
     }
-    UINT stat_ResotreHash = read_gaUint(1665454 + 4);
-    INT stat_ResotreValue = read_gaInt(1010831 + 5525);
-    write_gaUint(1665454 + 4, joaat(s));
-    write_gaInt(1010831 + 5525, value);
-    write_gaInt(1653913 + 1139, -1);
+    UINT stat_ResotreHash = read_gaUint(1665476 + 1 + 3);
+    INT stat_ResotreValue = read_gaInt(980531 + 5525);
+    write_gaUint(1665476 + 1 + 3, joaat(s));
+    write_gaInt(980531 + 5525, value);
+    write_gaInt(1654054 + 1139, -1);
     Sleep(1000);
-    write_gaUint(1665454 + 4, stat_ResotreHash);
-    write_gaInt(1010831 + 5525, stat_ResotreValue);
+    write_gaUint(1665476 + 1 + 3, stat_ResotreHash);
+    write_gaInt(980531 + 5525, stat_ResotreValue);
     delete[] s;
 }
 
@@ -1048,25 +1048,25 @@ FLOAT Gtav::read_localAddressFloat(CHAR *threadName, ADDR offset)
 void Gtav::read_cut(INT *data)
 {
 
-    data[0] = read_gaInt(1937658 + 3008 + 1); // 公寓豪劫
-    data[1] = read_gaInt(1937658 + 3008 + 2);
-    data[2] = read_gaInt(1937658 + 3008 + 3);
-    data[3] = read_gaInt(1937658 + 3008 + 4);
+    data[0] = read_gaInt(1938365 + 3008 + 1); // 公寓豪劫
+    data[1] = read_gaInt(1938365 + 3008 + 2);
+    data[2] = read_gaInt(1938365 + 3008 + 3);
+    data[3] = read_gaInt(1938365 + 3008 + 4);
 
-    data[4] = read_gaInt(1966831 + 812 + 50 + 1); // 末日豪劫
-    data[5] = read_gaInt(1966831 + 812 + 50 + 2);
-    data[6] = read_gaInt(1966831 + 812 + 50 + 3);
-    data[7] = read_gaInt(1966831 + 812 + 50 + 4);
+    data[4] = read_gaInt(1967630 + 812 + 50 + 1); // 末日豪劫
+    data[5] = read_gaInt(1967630 + 812 + 50 + 2);
+    data[6] = read_gaInt(1967630 + 812 + 50 + 3);
+    data[7] = read_gaInt(1967630 + 812 + 50 + 4);
 
-    data[8] = read_gaInt(1970895 + 1497 + 736 + 92 + 1); // 赌场豪动
-    data[9] = read_gaInt(1970895 + 1497 + 736 + 92 + 2);
-    data[10] = read_gaInt(1970895 + 1497 + 736 + 92 + 3);
-    data[11] = read_gaInt(1970895 + 1497 + 736 + 92 + 4);
+    data[8] = read_gaInt(1971696 + 1497 + 736 + 92 + 1); // 赌场豪动
+    data[9] = read_gaInt(1971696 + 1497 + 736 + 92 + 2);
+    data[10] = read_gaInt(1971696 + 1497 + 736 + 92 + 3);
+    data[11] = read_gaInt(1971696 + 1497 + 736 + 92 + 4);
 
-    data[12] = read_gaInt(1977693 + 823 + 56 + 1); // 佩里科岛豪劫
-    data[13] = read_gaInt(1977693 + 823 + 56 + 2);
-    data[14] = read_gaInt(1977693 + 823 + 56 + 3);
-    data[15] = read_gaInt(1977693 + 823 + 56 + 4);
+    data[12] = read_gaInt(1978495 + 825 + 56 + 1); // 佩里科岛豪劫
+    data[13] = read_gaInt(1978495 + 825 + 56 + 2);
+    data[14] = read_gaInt(1978495 + 825 + 56 + 3);
+    data[15] = read_gaInt(1978495 + 825 + 56 + 4);
 }
 
 /**
@@ -1076,25 +1076,25 @@ void Gtav::read_cut(INT *data)
  */
 void Gtav::write_cut(INT *data)
 {
-    write_gaInt(1937658 + 3008 + 1, data[0]); // 公寓豪劫
-    write_gaInt(1937658 + 3008 + 2, data[1]); // 公寓豪劫
-    write_gaInt(1937658 + 3008 + 3, data[2]); // 公寓豪劫
-    write_gaInt(1937658 + 3008 + 4, data[3]); // 公寓豪劫
+    write_gaInt(1938365 + 3008 + 1, data[0]); // 公寓豪劫
+    write_gaInt(1938365 + 3008 + 2, data[1]); // 公寓豪劫
+    write_gaInt(1938365 + 3008 + 3, data[2]); // 公寓豪劫
+    write_gaInt(1938365 + 3008 + 4, data[3]); // 公寓豪劫
 
-    write_gaInt(1966831 + 812 + 50 + 1, data[4]); // 末日豪劫
-    write_gaInt(1966831 + 812 + 50 + 2, data[5]); // 末日豪劫
-    write_gaInt(1966831 + 812 + 50 + 3, data[6]); // 末日豪劫
-    write_gaInt(1966831 + 812 + 50 + 4, data[7]); // 末日豪劫
+    write_gaInt(1967630 + 812 + 50 + 1, data[4]); // 末日豪劫
+    write_gaInt(1967630 + 812 + 50 + 2, data[5]); // 末日豪劫
+    write_gaInt(1967630 + 812 + 50 + 3, data[6]); // 末日豪劫
+    write_gaInt(1967630 + 812 + 50 + 4, data[7]); // 末日豪劫
 
-    write_gaInt(1970895 + 1497 + 736 + 92 + 1, data[8]);  // 赌场豪动
-    write_gaInt(1970895 + 1497 + 736 + 92 + 2, data[9]);  // 赌场豪动
-    write_gaInt(1970895 + 1497 + 736 + 92 + 3, data[10]); // 赌场豪动
-    write_gaInt(1970895 + 1497 + 736 + 92 + 4, data[11]); // 赌场豪动
+    write_gaInt(1971696 + 1497 + 736 + 92 + 1, data[8]);  // 赌场豪动
+    write_gaInt(1971696 + 1497 + 736 + 92 + 2, data[9]);  // 赌场豪动
+    write_gaInt(1971696 + 1497 + 736 + 92 + 3, data[10]); // 赌场豪动
+    write_gaInt(1971696 + 1497 + 736 + 92 + 4, data[11]); // 赌场豪动
 
-    write_gaInt(1977693 + 823 + 56 + 1, data[12]); // 佩里科岛豪劫
-    write_gaInt(1977693 + 823 + 56 + 2, data[13]); // 佩里科岛豪劫
-    write_gaInt(1977693 + 823 + 56 + 3, data[14]); // 佩里科岛豪劫
-    write_gaInt(1977693 + 823 + 56 + 4, data[15]); // 佩里科岛豪劫
+    write_gaInt(1978495 + 825 + 56 + 1, data[12]); // 佩里科岛豪劫
+    write_gaInt(1978495 + 825 + 56 + 2, data[13]); // 佩里科岛豪劫
+    write_gaInt(1978495 + 825 + 56 + 3, data[14]); // 佩里科岛豪劫
+    write_gaInt(1978495 + 825 + 56 + 4, data[15]); // 佩里科岛豪劫
 }
 
 /**
@@ -1109,10 +1109,10 @@ void Gtav::antiAFK(bool status)
     write_gaInt(262145 + 89, status ? 99999999 : 600000);
     write_gaInt(262145 + 90, status ? 99999999 : 900000);
     // 742014
-    write_gaInt(262145 + 8248, status ? 2000000000 : 30000);
-    write_gaInt(262145 + 8249, status ? 2000000000 : 60000);
-    write_gaInt(262145 + 8250, status ? 2000000000 : 90000);
-    write_gaInt(262145 + 8251, status ? 2000000000 : 120000);
+    write_gaInt(262145 + 8420, status ? 2000000000 : 30000);
+    write_gaInt(262145 + 8421, status ? 2000000000 : 60000);
+    write_gaInt(262145 + 8422, status ? 2000000000 : 90000);
+    write_gaInt(262145 + 8423, status ? 2000000000 : 120000);
 }
 
 /**

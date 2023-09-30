@@ -29,7 +29,7 @@
 #define oPedInventoryInfiniteAmmo 0x78
 
 #define oPedPlayerInfo 0x10A8
-#define oPedPlayerInfoCopLevel 0x8E8
+#define oPedPlayerInfoCopLevel 0x8D8
 
 #define oPedArmor 0x150C
 #define oPedGodMode 0x189
@@ -42,8 +42,8 @@
 
 #define oSessionState 1574589
 #define oSessionCache 1574589 + 2
-#define oSessionType 1575017
+#define oSessionType 1575020
 
-#define oVehicleCreate 2694562
+#define oVehicleCreate 2694613
 
 #endif
